@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const db = new DatabaseSync(path.join(__dirname, 'attendance.db'));
+const db = new DatabaseSync(process.env.DB_PATH || path.join(__dirname, 'attendance.db'));
 
 db.exec('PRAGMA journal_mode = WAL;');
 db.exec('PRAGMA foreign_keys = ON;');
