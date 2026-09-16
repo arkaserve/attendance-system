@@ -1,0 +1,18 @@
+# Netlify — serves only the static frontend build.
+# The Express+SQLite backend MUST run on a persistent host (see render.yaml / Dockerfile).
+[build]
+  command = "cd frontend && npm install && npm run build"
+  publish = "frontend/dist"
+
+# Prod: forward /api/* to the hosted backend.
+# TODO: replace .onrender.com host with your real backend URL after first deploy.
+[[redirects]]
+  from = "/api/*"
+  to = "https://attendance-backend.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
